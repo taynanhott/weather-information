@@ -107,19 +107,19 @@
 }
 
 .cloud-top-one {
-  animation: moveOne 8.5s forwards, opacity 20s forwards;
+  animation: moveOne 11.5s forwards, opacity 20s forwards;
 }
 
 .cloud-top-two {
-  animation: moveTwo 7.5s forwards, opacity 20s forwards;
+  animation: moveTwo 10.5s forwards, opacity 20s forwards;
 }
 
 .cloud-bottom-three {
-  animation: moveThree 6s forwards, opacity 20s forwards;
+  animation: moveThree 9s forwards, opacity 20s forwards;
 }
 
 .cloud-bottom-four {
-  animation: moveFour 7s forwards, opacity 20s forwards;
+  animation: moveFour 10s forwards, opacity 20s forwards;
 }
 
 /* Small =============================================================== */
@@ -185,7 +185,7 @@
 @media (min-width: 641px) and (max-width: 1280px) {
   @keyframes moveOne {
     from {
-      transform: translateX(50%) scale(1.5);
+      transform: translateX(-50%) scale(1.5);
     }
 
     to {
@@ -195,7 +195,7 @@
 
   @keyframes moveTwo {
     from {
-      transform: translateX(-100%) scale(2);
+      transform: translateX(-90%) scale(2);
     }
 
     to {
@@ -215,7 +215,7 @@
 
   @keyframes moveFour {
     from {
-      transform: translateX(-100%) scale(4);
+      transform: translateX(-20%) scale(4);
     }
 
     to {
@@ -234,18 +234,18 @@
   }
 
   .cloud-top-one {
-    animation: moveOne 13s forwards, opacity 30s forwards;
+    animation: moveOne 13s forwards;
   }
 
   .cloud-top-two {
-    animation: moveTwo 16s forwards, opacity 30s forwards;
+    animation: moveTwo 13s forwards;
   }
 
   .cloud-bottom-three {
-    animation: moveThree 16s forwards, opacity 30s forwards;
+    animation: moveThree 16s forwards;
   }
 
   .cloud-bottom-four {
-    animation: moveFour 15s forwards, opacity 30s forwards;
+    animation: moveFour 16s forwards;
   }
 }

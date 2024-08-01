@@ -5,6 +5,9 @@ import Welcome from "./components/Welcome";
 import WeatherInformation5Days from "./components/WeatherInformation5Days";
 import WeatherInformation from "./components/WeatherInformation";
 import Sun from "./components/Sun";
+import Moon from "./components/Moon";
+import * as moment from "moment";
+import "moment/locale/pt-br";
 
 export default function App() {
   const [weather, setWeather] = useState({});
@@ -36,11 +39,9 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-t from-cyan-500 to-blue-500">
-      <motion.div
-        {...itemVariants}
-        className="pt-32 md:pt-40 lg:pt-40 mx-4"
-      >
+    // <div className="h-screen bg-gradient-to-t from-cyan-500 to-blue-500">
+    <div className="h-screen bg-gradient-to-t from-slate-900 to-slate-500">
+      <motion.div {...itemVariants} className="pt-32 md:pt-40 lg:pt-40 mx-4">
         <div className="max-w-md mx-auto bg-white p-8 rounded-xl">
           <div className="text-center mb-4">
             <div className="text-xl font-bold">Informações do Clima</div>
@@ -73,7 +74,9 @@ export default function App() {
           <WeatherInformation5Days data={weather5Days} />
         )}
       </motion.div>
-      <Sun />
+
+      <Moon />
+      {/* <Sun /> */}
       <Welcome />
     </div>
   );
