@@ -2,7 +2,6 @@
   width: 275px;
   height: 75px;
   position: fixed;
-  /* Adiciona uma transição suave */
   transition: transform 0.7s ease-in-out;
 }
 
@@ -46,7 +45,6 @@
   box-shadow: 90px 0 0 0px rgb(233, 233, 233);
 }
 
-/* Posições iniciais das nuvens */
 .cloud-top-one {
   top: 200px;
   left: 400px;
@@ -67,56 +65,187 @@
   right: 200px;
 }
 
-/* Animações */
+/* large =============================================================== */
 @keyframes moveOne {
   from {
-    transform: translateX(0) scale(1.5);
+    transform: translateX(-100%) scale(3);
   }
+
   to {
-    transform: translateX(-650%) scale(3);
+    transform: translateX(-1000%) scale(7);
   }
 }
 
 @keyframes moveTwo {
   from {
-    transform: translateX(0) scale(2);
+    transform: translateX(100%) scale(4);
   }
+
   to {
-    transform: translateX(500%) scale(4);
+    transform: translateX(1000%) scale(8.5);
   }
 }
 
 @keyframes moveThree {
   from {
-    transform: translateX(0) scale(3.75);
+    transform: translateX(-200%) scale(4.75);
   }
+
   to {
-    transform: translateX(-550%) scale(4.5);
+    transform: translateX(-1000%) scale(8.5);
   }
 }
 
 @keyframes moveFour {
   from {
-    transform: translateX(0) scale(4);
+    transform: translateX(0%) scale(6);
   }
+
   to {
-    transform: translateX(500%) scale(5);
+    transform: translateX(1000%) scale(9);
   }
 }
 
-/* Aplica animações às nuvens */
 .cloud-top-one {
-  animation: moveOne 7.5s forwards;
+  animation: moveOne 8.5s forwards, opacity 20s forwards;
 }
 
 .cloud-top-two {
-  animation: moveTwo 6.5s forwards;
+  animation: moveTwo 7.5s forwards, opacity 20s forwards;
 }
 
 .cloud-bottom-three {
-  animation: moveThree 5s forwards;
+  animation: moveThree 6s forwards, opacity 20s forwards;
 }
 
 .cloud-bottom-four {
-  animation: moveFour 4s forwards;
+  animation: moveFour 7s forwards, opacity 20s forwards;
+}
+
+/* Small =============================================================== */
+@media (max-width: 640px) {
+  @keyframes moveOne {
+    from {
+      transform: translateX(50%) scale(1.5);
+    }
+
+    to {
+      transform: translateX(-500%) scale(3);
+    }
+  }
+
+  @keyframes moveTwo {
+    from {
+      transform: translateX(-100%) scale(2);
+    }
+
+    to {
+      transform: translateX(500%) scale(4);
+    }
+  }
+
+  @keyframes moveThree {
+    from {
+      transform: translateX(-100%) scale(3.75);
+    }
+
+    to {
+      transform: translateX(-500%) scale(4.5);
+    }
+  }
+
+  @keyframes moveFour {
+    from {
+      transform: translateX(-100%) scale(4);
+    }
+
+    to {
+      transform: translateX(500%) scale(5);
+    }
+  }
+
+  .cloud-top-one {
+    animation: moveOne 9s forwards, opacity 20s forwards;
+  }
+
+  .cloud-top-two {
+    animation: moveTwo 12s forwards, opacity 20s forwards;
+  }
+
+  .cloud-bottom-three {
+    animation: moveThree 12s forwards, opacity 20s forwards;
+  }
+
+  .cloud-bottom-four {
+    animation: moveFour 9s forwards, opacity 20s forwards;
+  }
+}
+
+/* Mid =============================================================== */
+@media (min-width: 641px) and (max-width: 1280px) {
+  @keyframes moveOne {
+    from {
+      transform: translateX(50%) scale(1.5);
+    }
+
+    to {
+      transform: translateX(-800%) scale(3);
+    }
+  }
+
+  @keyframes moveTwo {
+    from {
+      transform: translateX(-100%) scale(2);
+    }
+
+    to {
+      transform: translateX(800%) scale(4);
+    }
+  }
+
+  @keyframes moveThree {
+    from {
+      transform: translateX(-100%) scale(3.75);
+    }
+
+    to {
+      transform: translateX(-800%) scale(4.5);
+    }
+  }
+
+  @keyframes moveFour {
+    from {
+      transform: translateX(-100%) scale(4);
+    }
+
+    to {
+      transform: translateX(800%) scale(5);
+    }
+  }
+
+  @keyframes opacity {
+    from {
+      opacity: 100%;
+    }
+
+    to {
+      opacity: 0%;
+    }
+  }
+
+  .cloud-top-one {
+    animation: moveOne 13s forwards, opacity 30s forwards;
+  }
+
+  .cloud-top-two {
+    animation: moveTwo 16s forwards, opacity 30s forwards;
+  }
+
+  .cloud-bottom-three {
+    animation: moveThree 16s forwards, opacity 30s forwards;
+  }
+
+  .cloud-bottom-four {
+    animation: moveFour 15s forwards, opacity 30s forwards;
+  }
 }
