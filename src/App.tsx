@@ -1,13 +1,15 @@
 import axios from "axios";
-import { motion } from "framer-motion";
-import { useState, useRef } from "react";
-import Welcome from "./components/Welcome";
-import WeatherInformation5Days from "./components/WeatherInformation5Days";
-import WeatherInformation from "./components/WeatherInformation";
-import Sun from "./components/Sun";
-import Moon from "./components/Moon";
 import * as moment from "moment";
 import "moment/locale/pt-br";
+import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+
+import Sun from "./components/Sun";
+import Moon from "./components/Moon";
+import Welcome from "./components/Welcome";
+import WeatherInformation from "./components/WeatherInformation";
+import WeatherInformation5Days from "./components/WeatherInformation5Days";
+import Bird from "./components/Bird";
 
 export default function App() {
   const [weather, setWeather] = useState({});
@@ -39,9 +41,11 @@ export default function App() {
   };
 
   return (
-    // <div className="h-screen bg-gradient-to-t from-cyan-500 to-blue-500">
-    <div className="h-screen bg-gradient-to-t from-slate-900 to-slate-500">
-      <motion.div {...itemVariants} className="pt-32 md:pt-40 lg:pt-40 mx-4">
+    <div className="min-h-screen h-full bg-gradient-to-t from-cyan-500 to-blue-500">
+      <motion.div
+        {...itemVariants}
+        className="pt-40 mx-4 md:mx-8 lg:mx-16 xl:mx-32"
+      >
         <div className="max-w-md mx-auto bg-white p-8 rounded-xl">
           <div className="text-center mb-4">
             <div className="text-xl font-bold">Informações do Clima</div>
@@ -50,7 +54,7 @@ export default function App() {
             </div>
           </div>
           <div className="grid gap-4">
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-col md:flex-row items-center gap-2">
               <input
                 ref={inputRef}
                 type="text"
@@ -59,7 +63,7 @@ export default function App() {
               />
               <button
                 onClick={searchCity}
-                className="mt-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="mt-2 md:mt-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               >
                 Buscar
               </button>
@@ -75,8 +79,8 @@ export default function App() {
         )}
       </motion.div>
 
-      <Moon />
-      {/* <Sun /> */}
+      <Sun />
+      <Bird />
       <Welcome />
     </div>
   );

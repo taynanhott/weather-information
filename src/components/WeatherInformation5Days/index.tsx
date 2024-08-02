@@ -12,7 +12,6 @@ export default function WeatherInformation5Days({ data }: any) {
   }
 
   const next5Days = Object.values(dailyForecast).slice(1, 6);
-  console.log(next5Days);
 
   const itemVariants = {
     initial: { opacity: 0, y: 10 },
@@ -25,11 +24,22 @@ export default function WeatherInformation5Days({ data }: any) {
   };
 
   return (
-    <motion.div {...itemVariants} className="mt-6">
-      <div className="max-w-md mx-auto bg-white p-8 rounded-xl">
-        <img
-          src={`http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`}
-        />
+    <motion.div {...itemVariants} className="mt-6 mb-36">
+      <div className="max-w-md mx-auto bg-slate-100 rounded-xl border shadow-lg p-8">
+        <div className="flex justify-between">
+          {next5Days.map((day: any, index: number) => (
+            <div
+              key={`day-weather-${index}`}
+              className="flex flex-col items-center"
+            >
+              <img
+                src={`http://openweathermap.org/img/wn/${data.list[index].weather[0].icon}.png`}
+                className="mb-2"
+              />
+              <div>{data.list[index].main.temp}º</div>
+            </div>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
