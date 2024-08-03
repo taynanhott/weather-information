@@ -1,8 +1,6 @@
 import axios from "axios";
-import * as moment from "moment";
-import "moment/locale/pt-br";
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import Sun from "./components/Sun";
 import Moon from "./components/Moon";
@@ -11,10 +9,28 @@ import WeatherInformation from "./components/WeatherInformation";
 import WeatherInformation5Days from "./components/WeatherInformation5Days";
 import Bird from "./components/Bird";
 
+import moment from "moment";
+import "moment/locale/pt-br";
+import { useWeather } from "./context/WeatherContext";
+
 export default function App() {
+  const { weatherCondition, setWeatherCondition } = useWeather();
   const [weather, setWeather] = useState({});
   const [weather5Days, setWeather5Days] = useState({});
+  const [time, setTime] = useState(true);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    const currentTime = moment();
+    const start = moment("06:00", "HH:mm");
+    const end = moment("18:00", "HH:mm");
+
+    if (currentTime.isBetween(start, end, undefined, "[)")) {
+      setTime(true);
+    } else {
+      setTime(false);
+    }
+  }, [time]);
 
   async function searchCity() {
     const city = inputRef.current ? inputRef.current.value : "";
@@ -24,6 +40,7 @@ export default function App() {
     const result = await axios.get(url);
     const result5Days = await axios.get(url5Days);
 
+    setWeatherCondition(result.data.weather[0].main);
     setWeather(result.data);
     setWeather5Days(result5Days.data);
   }
@@ -40,8 +57,15 @@ export default function App() {
     viewport: { once: true },
   };
 
+  const background = 
+
   return (
-    <div className="min-h-screen h-full bg-gradient-to-t from-cyan-500 to-blue-500">
+    <div
+      className={`min-h-screen bg-gradient-to-t pb-24 ${
+        time ? "from-cyan-500 to-blue-500" : "from-slate-500 to-slate-900"
+      }`}
+    >
+      {time ? <Sun /> : <Moon />}
       <motion.div
         {...itemVariants}
         className="pt-40 mx-4 md:mx-8 lg:mx-16 xl:mx-32"
@@ -79,8 +103,7 @@ export default function App() {
         )}
       </motion.div>
 
-      <Sun />
-      <Bird />
+      {time ? <Bird /> : <></>}
       <Welcome />
     </div>
   );

@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
+import moment from "moment";
+import "moment/locale/pt-br";
 
 export default function WeatherInformation5Days({ data }: any) {
+  moment.locale("pt-br");
   let dailyForecast: any = {};
 
   for (let forecast of data.list) {
@@ -24,19 +27,27 @@ export default function WeatherInformation5Days({ data }: any) {
   };
 
   return (
-    <motion.div {...itemVariants} className="mt-6 mb-36">
+    <motion.div {...itemVariants} className="mt-6">
       <div className="max-w-md mx-auto bg-slate-100 rounded-xl border shadow-lg p-8">
-        <div className="flex justify-between">
+        <div className="grid grid-cols-10 gap-10">
           {next5Days.map((day: any, index: number) => (
             <div
               key={`day-weather-${index}`}
-              className="flex flex-col items-center"
+              className="col-span-5 sm:col-span-2 flex flex-col items-center"
             >
+              <div className="font-bold">
+                {moment.unix(day.dt).locale("pt-br").format("dddd")}
+              </div>
               <img
-                src={`http://openweathermap.org/img/wn/${data.list[index].weather[0].icon}.png`}
+                src={`http://openweathermap.org/img/wn/${
+                  day.weather[0].icon === "01n" ? "01d" : day.weather[0].icon
+                }.png`}
                 className="mb-2"
+                alt="Weather icon"
               />
-              <div>{data.list[index].main.temp}º</div>
+              <div className="text-lg font-bold">
+                {day.main.temp.toFixed(0)}º
+              </div>
             </div>
           ))}
         </div>

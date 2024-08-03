@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 
 export default function WeatherInformation({ data }: any) {
-  console.log(data);
 
   const itemVariants = {
     initial: { opacity: 0, y: 10 },
@@ -33,21 +32,26 @@ export default function WeatherInformation({ data }: any) {
           </div>
 
           <div className="flex items-center mx-auto gap-4">
-            <div className="flex flex-col items-start">
+            <div
+              className="flex flex-col items-start"
+              title="Temperatura Atual"
+            >
               <div className="text-9xl font-bold">
                 {data.main.temp.toFixed(0)}°
               </div>
             </div>
             <div className="flex flex-col items-start">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2" title="Umidade do Ar">
                 <CloudFogIcon className="w-5 h-5 text-muted-foreground" />
                 <div className="text-xl text-muted-foreground">
                   {data.main.humidity}%
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <WindIcon className="w-5 h-5 text-muted-foreground" />
-                <div className="text-xl text-muted-foreground">12 km/h</div>
+              <div className="flex items-center gap-2" title="Sensação Térmica">
+                <ThermometerIcon className="w-5 h-5 text-muted-foreground" />
+                <div className="text-xl text-muted-foreground">
+                  {data.main.feels_like.toFixed(1)}ºC
+                </div>
               </div>
 
               <div className="text-lg text-muted-foreground">Atualmente</div>
@@ -103,7 +107,7 @@ function LocateIcon(props: any) {
   );
 }
 
-function WindIcon(props: any) {
+function ThermometerIcon(props: any) {
   return (
     <svg
       {...props}
@@ -117,9 +121,7 @@ function WindIcon(props: any) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" />
-      <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
-      <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
+      <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" />
     </svg>
   );
 }

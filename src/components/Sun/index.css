@@ -1,20 +1,11 @@
 @keyframes descer {
   from {
-    top: -200px;
+    top: -400px;
   }
 
   to {
-    top: 0;
+    top: -100px;
   }
-}
-
-.teste {
-  width: 275px;
-  height: 75px;
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: transform 0.7s ease-in-out;
 }
 
 .sun {
