@@ -18,6 +18,7 @@ export default function App() {
   const [weather, setWeather] = useState({});
   const [weather5Days, setWeather5Days] = useState({});
   const [time, setTime] = useState(true);
+  const [background, setBackground] = useState("from-cyan-500 to-blue-500");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -27,8 +28,10 @@ export default function App() {
 
     if (currentTime.isBetween(start, end, undefined, "[)")) {
       setTime(true);
+      setBackground('linear-gradient(to top, #06b6d4, #3b82f6)');
     } else {
       setTime(false);
+      setBackground('linear-gradient(to top, #cbd5e1, #64748b)');
     }
   }, [time]);
 
@@ -57,54 +60,59 @@ export default function App() {
     viewport: { once: true },
   };
 
-  const background = 
-
   return (
-    <div
-      className={`min-h-screen bg-gradient-to-t pb-24 ${
-        time ? "from-cyan-500 to-blue-500" : "from-slate-500 to-slate-900"
-      }`}
-    >
-      {time ? <Sun /> : <Moon />}
+    <div className="relative min-h-screen pb-24">
       <motion.div
-        {...itemVariants}
-        className="pt-40 mx-4 md:mx-8 lg:mx-16 xl:mx-32"
-      >
-        <div className="max-w-md mx-auto bg-white p-8 rounded-xl">
-          <div className="text-center mb-4">
-            <div className="text-xl font-bold">Informações do Clima</div>
-            <div className="text-gray-600">
-              Digite o nome de uma cidade para mais informações.
+        className="absolute top-0 left-0 w-full h-full z-0"
+        initial={{ opacity: 0 }}
+        animate={{
+          background: weatherCondition === 'Clear' ? background : 'linear-gradient(to top, #cbd5e1, #64748b)',
+          opacity: 1
+        }}
+        transition={{ duration: 1 }}
+      />
+      <div className="relative">
+        {time ? <Sun /> : <Moon />}
+        <motion.div
+          {...itemVariants}
+          className="pt-40 mx-4 md:mx-8 lg:mx-16 xl:mx-32 z-10"
+        >
+          <div className="max-w-md mx-auto bg-white p-8 rounded-xl">
+            <div className="text-center mb-4">
+              <div className="text-xl font-bold">Informações do Clima</div>
+              <div className="text-gray-600">
+                Digite o nome de uma cidade para mais informações.
+              </div>
+            </div>
+            <div className="grid gap-4">
+              <div className="flex flex-col md:flex-row items-center gap-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Digite uma cidade"
+                  className="p-2 border rounded w-full"
+                />
+                <button
+                  onClick={searchCity}
+                  className="mt-2 md:mt-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  Buscar
+                </button>
+              </div>
             </div>
           </div>
-          <div className="grid gap-4">
-            <div className="flex flex-col md:flex-row items-center gap-2">
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Digite uma cidade"
-                className="p-2 border rounded w-full"
-              />
-              <button
-                onClick={searchCity}
-                className="mt-2 md:mt-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
-                Buscar
-              </button>
-            </div>
-          </div>
-        </div>
-        {Object.keys(weather).length !== 0 && (
-          <WeatherInformation data={weather} />
-        )}
+          {Object.keys(weather).length !== 0 && (
+            <WeatherInformation data={weather} />
+          )}
 
-        {Object.keys(weather5Days).length !== 0 && (
-          <WeatherInformation5Days data={weather5Days} />
-        )}
-      </motion.div>
-
+          {Object.keys(weather5Days).length !== 0 && (
+            <WeatherInformation5Days data={weather5Days} />
+          )}
+        </motion.div>
+      </div>
       {time ? <Bird /> : <></>}
       <Welcome />
     </div>
+
   );
 }

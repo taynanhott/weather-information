@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
 interface WeatherContextType {
-  weatherCondition: string; // Condições do clima, como 'clouds', 'clear', etc.
+  weatherCondition: string;
   setWeatherCondition: (condition: string) => void;
 }
 

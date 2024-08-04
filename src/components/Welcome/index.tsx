@@ -2,7 +2,7 @@ import "./index.css";
 
 export default function Welcome() {
   return (
-    <div>
+    <div className="z-50">
       <div className="base cloud-top-one">
         <div className="cloud-type-2"></div>
       </div>

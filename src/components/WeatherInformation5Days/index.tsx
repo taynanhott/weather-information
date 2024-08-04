@@ -27,7 +27,7 @@ export default function WeatherInformation5Days({ data }: any) {
   };
 
   return (
-    <motion.div {...itemVariants} className="mt-6">
+    <motion.div {...itemVariants} className="mt-6 z-10">
       <div className="max-w-md mx-auto bg-slate-100 rounded-xl border shadow-lg p-8">
         <div className="grid grid-cols-10 gap-10">
           {next5Days.map((day: any, index: number) => (
