@@ -1,21 +1,10 @@
-@keyframes descer {
-  from {
-    top: -400px;
-  }
-
-  to {
-    top: -100px;
-  }
-}
-
 .sun {
   position: absolute;
   width: 200px;
   height: 200px;
   background-color: rgb(255, 230, 0);
-  box-shadow: 0 0 60px 25px rgb(255, 255, 141),0 0 25px 10px;
+  box-shadow: 0 0 60px 25px rgb(255, 255, 141), 0 0 25px 10px;
   border-radius: 100%;
-  animation: descer 3s ease-in-out forwards;
 }
 
 .sun-top {
@@ -24,5 +13,4 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  top: -100px;
 }
