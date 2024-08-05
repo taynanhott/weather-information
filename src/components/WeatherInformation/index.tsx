@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 
 export default function WeatherInformation({ data }: any) {
-
   const itemVariants = {
     initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0 },
@@ -26,7 +25,9 @@ export default function WeatherInformation({ data }: any) {
             <div className="bg-primary rounded-full w-8 h-8 flex items-center justify-center">
               <img
                 className="text-primary-foreground scale-150"
-                src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+                src={`http://openweathermap.org/img/wn/${
+                  data.weather[0].icon === "01n" ? "01d" : data.weather[0].icon
+                }.png`}
               />
             </div>
           </div>

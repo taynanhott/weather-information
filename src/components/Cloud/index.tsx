@@ -1,11 +1,10 @@
 import "./index.css";
 
-export default function Sun() {
+export default function Cloud() {
   return (
-    <div id="body">
-      <div className="teste sun-top">
-        <div className="sun"></div>
-      </div>
+    <div className="cloud-container z-10">
+      <div className="cloudy-1"></div>
+      <div className="cloudy-2"></div>
     </div>
   );
 }

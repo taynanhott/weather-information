@@ -12,6 +12,8 @@ import Bird from "./components/Bird";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { useWeather } from "./context/WeatherContext";
+import Cloud from "./components/Cloud";
+import Rain from "./components/Rain";
 
 export default function App() {
   const { weatherCondition, setWeatherCondition } = useWeather();
@@ -28,10 +30,10 @@ export default function App() {
 
     if (currentTime.isBetween(start, end, undefined, "[)")) {
       setTime(true);
-      setBackground('linear-gradient(to top, #06b6d4, #3b82f6)');
+      setBackground("linear-gradient(to top, #06b6d4, #3b82f6)");
     } else {
       setTime(false);
-      setBackground('linear-gradient(to top, #cbd5e1, #64748b)');
+      setBackground("linear-gradient(to top, #cbd5e1, #64748b)");
     }
   }, [time]);
 
@@ -42,6 +44,8 @@ export default function App() {
 
     const result = await axios.get(url);
     const result5Days = await axios.get(url5Days);
+
+    console.log(result.data);
 
     setWeatherCondition(result.data.weather[0].main);
     setWeather(result.data);
@@ -60,22 +64,47 @@ export default function App() {
     viewport: { once: true },
   };
 
+  const weatherComponents = (weather: string) => {
+    switch (weather) {
+      case "Clear":
+        return <>{time ? <Sun /> : <Moon />}</>;
+      case "Clouds":
+        return (
+          <>
+            <Cloud />
+            {time ? <Sun /> : <Moon />}
+          </>
+        );
+      case "Rain":
+        return (
+          <>
+            <Rain />
+          </>
+        );
+      default:
+        return <>{time ? <Sun /> : <Moon />}</>;
+    }
+  };
+
   return (
     <div className="relative min-h-screen pb-24">
       <motion.div
         className="absolute top-0 left-0 w-full h-full z-0"
         initial={{ opacity: 0 }}
         animate={{
-          background: weatherCondition === 'Clear' ? background : 'linear-gradient(to top, #cbd5e1, #64748b)',
-          opacity: 1
+          background:
+            weatherCondition === "Clear"
+              ? background
+              : "linear-gradient(to top, #cbd5e1, #64748b)",
+          opacity: 1,
         }}
         transition={{ duration: 1 }}
       />
       <div className="relative">
-        {time ? <Sun /> : <Moon />}
+        {weatherComponents(weatherCondition)}
         <motion.div
           {...itemVariants}
-          className="pt-40 mx-4 md:mx-8 lg:mx-16 xl:mx-32 z-10"
+          className="pt-40 mx-4 md:mx-8 lg:mx-16 xl:mx-32 z-30"
         >
           <div className="max-w-md mx-auto bg-white p-8 rounded-xl">
             <div className="text-center mb-4">
@@ -90,11 +119,11 @@ export default function App() {
                   ref={inputRef}
                   type="text"
                   placeholder="Digite uma cidade"
-                  className="p-2 border rounded w-full"
+                  className="p-2 border rounded w-full z-40"
                 />
                 <button
                   onClick={searchCity}
-                  className="mt-2 md:mt-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="mt-2 md:mt-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 z-40"
                 >
                   Buscar
                 </button>
@@ -111,8 +140,7 @@ export default function App() {
         </motion.div>
       </div>
       {time ? <Bird /> : <></>}
-      <Welcome />
+      {/* <Welcome /> */}
     </div>
-
   );
 }
