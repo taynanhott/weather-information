@@ -14,7 +14,16 @@ export default function WeatherInformation5Days({ data }: any) {
     }
   }
 
-  const next5Days = Object.values(dailyForecast).slice(1, 6);
+  const dailyForecastValues = [];
+  const keys = Object.keys(dailyForecast);
+
+  for (let i = 1; i < 6; i++) {
+    if (i < keys.length) {
+      dailyForecastValues.push(dailyForecast[keys[i]]);
+    }
+  }
+
+  const next5Days = dailyForecastValues;
 
   const itemVariants = {
     initial: { opacity: 0, y: 10 },
@@ -39,9 +48,8 @@ export default function WeatherInformation5Days({ data }: any) {
                 {moment.unix(day.dt).locale("pt-br").format("dddd")}
               </div>
               <img
-                src={`http://openweathermap.org/img/wn/${
-                  day.weather[0].icon === "01n" ? "01d" : day.weather[0].icon
-                }.png`}
+                src={`http://openweathermap.org/img/wn/${day.weather[0].icon === "01n" ? "01d" : day.weather[0].icon
+                  }.png`}
                 className="mb-2"
                 alt="Weather icon"
               />
