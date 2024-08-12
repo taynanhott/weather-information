@@ -6,7 +6,7 @@ const largura = window.innerWidth;
 const cloudVariants = {
   topOne: {
     initial: { x: largura < 674 ? '50vw' : '60vw', y: largura < 674 ? '40vh' : '40vh', scale: 4 },
-    animate: { x: largura < 674 ? '250vw' : '250vw', y: largura < 674 ? '40vh' : '40vh', scale: 6 },
+    animate: { x: largura < 674 ? '300vw' : '250vw', y: largura < 674 ? '40vh' : '40vh', scale: 6 },
   },
   topTwo: {
     initial: { x: largura < 674 ? '50vw' : '30vw', y: largura < 674 ? '25vh' : '25vh', scale: 5 },
