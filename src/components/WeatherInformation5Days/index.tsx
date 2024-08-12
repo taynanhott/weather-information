@@ -17,7 +17,7 @@ export default function WeatherInformation5Days({ data }: any) {
   const dailyForecastValues = [];
   const keys = Object.keys(dailyForecast);
 
-  for (let i = 1; i < 6; i++) {
+  for (let i = 1; i < 5; i++) {
     if (i < keys.length) {
       dailyForecastValues.push(dailyForecast[keys[i]]);
     }
@@ -36,30 +36,34 @@ export default function WeatherInformation5Days({ data }: any) {
   };
 
   return (
-    <motion.div {...itemVariants} className="mt-6 z-10">
-      <div className="max-w-md mx-auto bg-slate-100 rounded-xl border shadow-lg p-8">
-        <div className="grid grid-cols-10 gap-10">
-          {next5Days.map((day: any, index: number) => (
+
+    <motion.div {...itemVariants} className="mt-6 z-10 grid grid-cols-4 gap-4 max-w-md mx-auto">
+      {next5Days.map((day: any, index: number) => (
+        <div className={`max-w-md mx-auto ${index < 2 ? 'bg-slate-300' : 'bg-slate-400'} rounded-xl border shadow-lg col-span-2 w-full`}>
+          <div className="text-center py-4">
             <div
               key={`day-weather-${index}`}
-              className="col-span-5 sm:col-span-2 flex flex-col items-center"
+              className="flex flex-col items-center p-2"
             >
-              <div className="font-bold">
-                {moment.unix(day.dt).locale("pt-br").format("dddd")}
+              <div className="flex items-center mb-2">
+                <div className="font-bold text-2xl lg:text-2xl text-center">
+                  {moment.unix(day.dt).locale("pt-br").format("dddd")}
+                </div>
+                <img
+                  src={`http://openweathermap.org/img/wn/${day.weather[0].icon === "01n" ? "01d" : day.weather[0].icon}.png`}
+                  className="ml-2"
+                  alt="Weather icon"
+                />
               </div>
-              <img
-                src={`http://openweathermap.org/img/wn/${day.weather[0].icon === "01n" ? "01d" : day.weather[0].icon
-                  }.png`}
-                className="mb-2"
-                alt="Weather icon"
-              />
-              <div className="text-lg font-bold">
+              <div className="text-5xl lg:text-6xl font-bold text-center">
                 {day.main.temp.toFixed(0)}º
               </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      ))
+      }
     </motion.div>
+
   );
 }

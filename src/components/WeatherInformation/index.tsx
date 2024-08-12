@@ -13,7 +13,7 @@ export default function WeatherInformation({ data }: any) {
 
   return (
     <motion.div {...itemVariants} className="mt-6">
-      <div className="max-w-md mx-auto bg-white rounded-xl border shadow-lg p-6 w-full">
+      <div className="max-w-md mx-auto bg-slate-100 rounded-xl border shadow-lg p-6 w-full">
         <div className="flex flex-col">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -36,7 +36,7 @@ export default function WeatherInformation({ data }: any) {
               className="flex flex-col items-start"
               title="Temperatura Atual"
             >
-              <div className="text-9xl font-bold">
+              <div className="text-8xl md:text-9xl lg:text-9xl font-bold">
                 {data.main.temp.toFixed(0)}°
               </div>
             </div>
