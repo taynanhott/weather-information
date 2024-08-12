@@ -14,9 +14,11 @@ import "moment/locale/pt-br";
 import { useWeather } from "./context/WeatherContext";
 import Cloud from "./components/Cloud";
 import Rain from "./components/Rain";
+import { AlertDestructive } from "./components/ui/alert";
 
 export default function App() {
   const { weatherCondition, setWeatherCondition } = useWeather();
+  const [request, setRequest] = useState<boolean>(true);
   const [weather, setWeather] = useState({});
   const [weather5Days, setWeather5Days] = useState({});
   const [time, setTime] = useState(true);
@@ -33,7 +35,7 @@ export default function App() {
       setBackground("linear-gradient(to top, #06b6d4, #3b82f6)");
     } else {
       setTime(false);
-      setBackground("linear-gradient(to top, #cbd5e1, #64748b)");
+      setBackground("linear-gradient(to top, #334155, #0f172a)");
     }
   }, [time]);
 
@@ -42,14 +44,17 @@ export default function App() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=d37adfb5e86e9a179b48e4e92fadbf27&lang=pt_br&units=metric`;
     const url5Days = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=d37adfb5e86e9a179b48e4e92fadbf27&lang=pt_br&units=metric`;
 
-    const result = await axios.get(url);
-    const result5Days = await axios.get(url5Days);
+    try {
+      const result = await axios.get(url);
+      const result5Days = await axios.get(url5Days);
 
-    console.log(result.data);
-
-    setWeatherCondition(result.data.weather[0].main);
-    setWeather(result.data);
-    setWeather5Days(result5Days.data);
+      setWeatherCondition(result.data.weather[0].main);
+      setWeather(result.data);
+      setWeather5Days(result5Days.data);
+      setRequest(true);
+    } catch {
+      setRequest(false);
+    }
   }
 
   const largura = window.innerWidth;
@@ -92,10 +97,7 @@ export default function App() {
         className="absolute top-0 left-0 w-full h-full z-0"
         initial={{ opacity: 0 }}
         animate={{
-          background:
-            weatherCondition === "Clear"
-              ? background
-              : "linear-gradient(to top, #cbd5e1, #64748b)",
+          background: weatherCondition === "Clear" ? background : "linear-gradient(to top, #94a3b8, #64748b)",
           opacity: 1,
         }}
         transition={{ duration: 1 }}
@@ -130,17 +132,23 @@ export default function App() {
               </div>
             </div>
           </div>
-          {Object.keys(weather).length !== 0 && (
-            <WeatherInformation data={weather} />
-          )}
-
-          {Object.keys(weather5Days).length !== 0 && (
-            <WeatherInformation5Days data={weather5Days} />
-          )}
+          {request ? (
+            <>
+              {Object.keys(weather).length !== 0 && (
+                <WeatherInformation data={weather} />
+              )}
+              {Object.keys(weather5Days).length !== 0 && (
+                <WeatherInformation5Days data={weather5Days} />
+              )}
+            </>
+          ) : (
+            <div className="max-w-md mx-auto bg-white rounded-xl border shadow-lg mt-6 p-6 w-full">
+              <AlertDestructive />
+            </div>)}
         </motion.div>
       </div>
       {time ? <Bird /> : <></>}
-      {/* <Welcome /> */}
+      <Welcome />
     </div>
   );
 }
