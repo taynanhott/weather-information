@@ -35,28 +35,40 @@ export default function WeatherInformation5Days({ data }: any) {
     viewport: { once: true },
   };
 
+  function capitalizeFirstLetter(word: string): string {
+    if (word.length === 0) return word;
+
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }
+
+  function convertDate(date: any) {
+    return new Date(date * 1000).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit' })
+  }
+
   return (
 
     <motion.div {...itemVariants} className="mt-6 z-10 grid grid-cols-4 gap-4 max-w-md mx-auto">
       {next5Days.map((day: any, index: number) => (
         <div className={`max-w-md mx-auto ${index < 2 ? 'bg-slate-300' : 'bg-slate-400'} rounded-xl border shadow-lg col-span-2 w-full`}>
           <div className="text-center py-4">
-            <div
-              key={`day-weather-${index}`}
-              className="flex flex-col items-center p-2"
-            >
-              <div className="flex items-center mb-2">
-                <div className="font-bold text-2xl lg:text-2xl text-center">
-                  {moment.unix(day.dt).locale("pt-br").format("dddd")}
-                </div>
-                <img
-                  src={`http://openweathermap.org/img/wn/${day.weather[0].icon === "01n" ? "01d" : day.weather[0].icon}.png`}
-                  className="ml-2"
-                  alt="Weather icon"
-                />
+            <div className="flex items-center mx-auto gap-4 grid grid-cols-4" key={`day-weather-${index}`}>
+              <div className="font-bold text-xl col-span-4 lg:text-2xl text-center">
+                {capitalizeFirstLetter(convertDate(day.dt))}
               </div>
-              <div className="text-5xl lg:text-6xl font-bold text-center">
-                {day.main.temp.toFixed(0)}º
+              <div className="flex flex-col items-start col-span-2">
+                <div className="text-6xl md:text-6xl lg:text-6xl font-bold">
+                  {day.main.temp.toFixed(0)}º
+                </div>
+              </div>
+              <div className="flex flex-col items-start col-span-1">
+                <div className="flex flex-col items-start" title="Umidade do Ar">
+                  <img
+                    src={`http://openweathermap.org/img/wn/${day.weather[0].icon === "01n" ? "01d" : day.weather[0].icon}.png`}
+                    className="ml-2"
+                    alt="Weather icon"
+                  />
+                  <div className="text-muted-foreground">Previsão</div>
+                </div>
               </div>
             </div>
           </div>
