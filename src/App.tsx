@@ -32,10 +32,10 @@ export default function App() {
 
     if (currentTime.isBetween(start, end, undefined, "[)")) {
       setTime(true);
-      setBackground("linear-gradient(to top, #06b6d4, #3b82f6)");
+      setBackground("linear-gradient(to top, rgba(6, 182, 212, 0.5), rgba(59, 130, 246, 0.5))");
     } else {
       setTime(false);
-      setBackground("linear-gradient(to top, #334155, #0f172a)");
+      setBackground("linear-gradient(to top, rgba(51, 65, 85, 0.8), rgba(15, 23, 42, 0.6))");
     }
   }, [time]);
 
@@ -93,11 +93,17 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen pb-24">
+      <div
+        className="absolute top-0 left-0 w-full h-full z-0 bg-cover bg-center"
+        style={{ backgroundImage: time ? `url('/img/background.jpg')` : `url('/img/background-night.jpg')` }}
+      />
       <motion.div
-        className="absolute top-0 left-0 w-full h-full z-0"
+        className="absolute top-0 left-0 w-full h-full"
         initial={{ opacity: 0 }}
         animate={{
-          background: weatherCondition === "Clear" ? background : "linear-gradient(to top, #94a3b8, #64748b)",
+          background: weatherCondition === "Clear"
+            ? background
+            : "linear-gradient(to top, rgba(148, 163, 184, 0.8), rgba(100, 116, 139, 0.6))",
           opacity: 1,
         }}
         transition={{ duration: 1 }}
@@ -151,5 +157,6 @@ export default function App() {
       {time ? <Bird /> : <></>}
       <Welcome />
     </div>
+
   );
 }
