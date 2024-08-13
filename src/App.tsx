@@ -6,7 +6,7 @@ import Sun from "./components/Sun";
 import Moon from "./components/Moon";
 import Welcome from "./components/Welcome";
 import WeatherInformation from "./components/WeatherInformation";
-import WeatherInformation5Days from "./components/WeatherInformation5Days";
+import WeatherInformation4Days from "./components/WeatherInformation4Days";
 import Bird from "./components/Bird";
 
 import moment from "moment";
@@ -20,7 +20,7 @@ export default function App() {
   const { weatherCondition, setWeatherCondition } = useWeather();
   const [request, setRequest] = useState<boolean>(true);
   const [weather, setWeather] = useState({});
-  const [weather5Days, setWeather5Days] = useState({});
+  const [weather4Days, setWeather4Days] = useState({});
   const [time, setTime] = useState(true);
   const [background, setBackground] = useState("from-cyan-500 to-blue-500");
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -42,15 +42,15 @@ export default function App() {
   async function searchCity() {
     const city = inputRef.current ? inputRef.current.value : "";
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=d37adfb5e86e9a179b48e4e92fadbf27&lang=pt_br&units=metric`;
-    const url5Days = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=d37adfb5e86e9a179b48e4e92fadbf27&lang=pt_br&units=metric`;
+    const url4Days = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=d37adfb5e86e9a179b48e4e92fadbf27&lang=pt_br&units=metric`;
 
     try {
       const result = await axios.get(url);
-      const result5Days = await axios.get(url5Days);
+      const result4Days = await axios.get(url4Days);
 
       setWeatherCondition(result.data.weather[0].main);
       setWeather(result.data);
-      setWeather5Days(result5Days.data);
+      setWeather4Days(result4Days.data);
       setRequest(true);
     } catch {
       setRequest(false);
@@ -108,7 +108,7 @@ export default function App() {
           {...itemVariants}
           className="pt-40 mx-4 md:mx-8 lg:mx-16 xl:mx-32 z-30"
         >
-          <div className="max-w-md mx-auto bg-white p-8 rounded-xl">
+          <div className="max-w-md mx-auto bg-white p-8 rounded-xl shadow-xl">
             <div className="text-center mb-4">
               <div className="text-xl font-bold">Informações do Clima</div>
               <div className="text-gray-600">
@@ -122,6 +122,7 @@ export default function App() {
                   type="text"
                   placeholder="Digite uma cidade"
                   className="p-2 border rounded w-full z-40"
+                  onKeyDown={(e) => e.key === 'Enter' && searchCity()}
                 />
                 <button
                   onClick={searchCity}
@@ -137,8 +138,8 @@ export default function App() {
               {Object.keys(weather).length !== 0 && (
                 <WeatherInformation data={weather} />
               )}
-              {Object.keys(weather5Days).length !== 0 && (
-                <WeatherInformation5Days data={weather5Days} />
+              {Object.keys(weather4Days).length !== 0 && (
+                <WeatherInformation4Days data={weather4Days} />
               )}
             </>
           ) : (

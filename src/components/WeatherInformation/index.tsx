@@ -13,7 +13,7 @@ export default function WeatherInformation({ data }: any) {
 
   return (
     <motion.div {...itemVariants} className="mt-6">
-      <div className="max-w-md mx-auto bg-slate-100 rounded-xl border shadow-lg p-6 w-full">
+      <div className="max-w-md mx-auto bg-slate-100 rounded-xl border shadow-xl p-6 w-full">
         <div className="flex flex-col">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
