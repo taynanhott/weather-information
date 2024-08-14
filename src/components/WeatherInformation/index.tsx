@@ -13,8 +13,21 @@ export default function WeatherInformation({ data }: any) {
 
   return (
     <motion.div {...itemVariants} className="mt-6">
-      <div className="max-w-md mx-auto bg-slate-100 rounded-xl border shadow-xl p-6 w-full">
-        <div className="flex flex-col">
+      <div className="relative max-w-md mx-auto bg-slate-100 rounded-xl border shadow-xl p-6 w-full">
+        <div
+          className={`absolute top-0 left-0 w-full h-full z-0 bg-cover bg-center rounded-xl ${data.weather[0].main !== 'Clear' ? 'filter grayscale' : ''}`}
+          style={{
+            backgroundImage: `
+              linear-gradient(
+        to top,
+        ${data.weather[0].main === "Clear"
+                ? "rgba(6, 182, 212, 0.8), rgba(59, 130, 246, 0.8)"
+                : "rgba(148, 163, 184, 0.8), rgba(100, 116, 139, 0.7)"
+              }),
+        url('/img/background.jpg')`,
+          }}
+        />
+        <div className="relative flex flex-col z-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <LocateIcon className="w-6 h-6 text-primary" />
@@ -32,10 +45,7 @@ export default function WeatherInformation({ data }: any) {
           </div>
 
           <div className="flex items-center mx-auto gap-4">
-            <div
-              className="flex flex-col items-start"
-              title="Temperatura Atual"
-            >
+            <div className="flex flex-col items-start" title="Temperatura Atual">
               <div className="text-8xl md:text-9xl lg:text-9xl font-bold">
                 {data.main.temp.toFixed(0)}°
               </div>
@@ -61,6 +71,7 @@ export default function WeatherInformation({ data }: any) {
       </div>
     </motion.div>
   );
+
 }
 
 function CloudFogIcon(props: any) {

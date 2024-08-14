@@ -108,7 +108,7 @@ export default function App() {
         animate={{
           background: weatherCondition === "Clear"
             ? background
-            : "linear-gradient(to top, rgba(148, 163, 184, 0.8), rgba(100, 116, 139, 0.7))",
+            : "linear-gradient(to top, rgba(148, 163, 184, 0.6), rgba(100, 116, 139, 0.6))",
           opacity: 1,
         }}
         transition={{ duration: 1 }}
