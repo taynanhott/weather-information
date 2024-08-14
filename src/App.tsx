@@ -94,8 +94,13 @@ export default function App() {
   return (
     <div className="relative min-h-screen pb-24">
       <div
-        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center"
-        style={{ backgroundImage: time ? `url('/img/background.jpg')` : `url('/img/background-night.jpg')` }}
+        className={`fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center ${weatherCondition !== "Clear" ? "filter grayscale" : ""
+          }`}
+        style={{
+          backgroundImage: time
+            ? `url('/img/background.jpg')`
+            : `url('/img/background-night.jpg')`,
+        }}
       />
       <motion.div
         className="absolute top-0 left-0 w-full h-full"
