@@ -127,7 +127,7 @@ export default function App() {
               </div>
             </div>
             <div className="grid gap-4">
-              <div className="flex flex-col md:flex-row items-center gap-2">
+              <div className="flex flex-row items-center gap-2">
                 <input
                   ref={inputRef}
                   type="text"
@@ -137,7 +137,7 @@ export default function App() {
                 />
                 <button
                   onClick={searchCity}
-                  className="mt-2 md:mt-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 z-40"
+                  className="mt-0 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 z-40"
                 >
                   Buscar
                 </button>
