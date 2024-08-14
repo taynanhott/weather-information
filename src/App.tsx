@@ -94,7 +94,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen pb-24">
       <div
-        className="absolute top-0 left-0 w-full h-full z-0 bg-cover bg-center"
+        className="fixed top-0 left-0 w-full h-full z-0 bg-cover bg-center"
         style={{ backgroundImage: time ? `url('/img/background.jpg')` : `url('/img/background-night.jpg')` }}
       />
       <motion.div
@@ -103,7 +103,7 @@ export default function App() {
         animate={{
           background: weatherCondition === "Clear"
             ? background
-            : "linear-gradient(to top, rgba(148, 163, 184, 0.8), rgba(100, 116, 139, 0.6))",
+            : "linear-gradient(to top, rgba(148, 163, 184, 0.8), rgba(100, 116, 139, 0.7))",
           opacity: 1,
         }}
         transition={{ duration: 1 }}
@@ -157,6 +157,5 @@ export default function App() {
       {time ? <Bird /> : <></>}
       <Welcome />
     </div>
-
   );
 }
